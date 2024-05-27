@@ -15,8 +15,10 @@ namespace Full_GRASP_And_SOLID
 
         public Product FinalProduct { get; set; }
 
-        public void AddStep(Step step)
+        // aca se crea una instancia de estep en recipe aplicando creator
+        public void AddStep(Product input, double quantity, Equipment equipment, int time)
         {
+            Step step = new Step(input, quantity, equipment, time);
             this.steps.Add(step);
         }
 
@@ -25,7 +27,6 @@ namespace Full_GRASP_And_SOLID
             this.steps.Remove(step);
         }
 
-        // Agregado por SRP
         public string GetTextToPrint()
         {
             string result = $"Receta de {this.FinalProduct.Description}:\n";
@@ -34,13 +35,11 @@ namespace Full_GRASP_And_SOLID
                 result = result + step.GetTextToPrint() + "\n";
             }
 
-            // Agregado por Expert
             result = result + $"Costo de producción: {this.GetProductionCost()}";
 
             return result;
         }
 
-        // Agregado por Expert
         public double GetProductionCost()
         {
             double result = 0;
